@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <!--<title>贪吃蛇</title>-->
+    <style>
+        h3 {
+            text-align: center;
+        }
+
+        .map {
+            width: 1200px;
+            height: 600px;
+            background: lightgray;
+            margin: 0 auto;
+            position: absolute;
+        }
+    </style>
+</head>
+<body>
+<!--<h3>纯js贪吃蛇小游戏</h3>-->
+<div class="map">
+
+    <button onclick="randomPosition()">随机</button>
+</div>
+<script>
+    let map = document.querySelector('.map')
+    let list = ['aa', 'bb', 'bbb']
+
+    function randomPosition() {
+        console.log('randomPosition')
+        console.log(map)
+        // console.log(map.offsetWidth)
+        console.log(Math.random())
+        // let list2 = list.filter(item => {
+        //     return item.length ===2
+        // })
+        // console.log(list2)
+        // console.log(list)
+        // console.log(map.width) // undefined
+        // console.log(document.querySelector('.map'))
+    }
+
+    <!--自调用函数-->
+    (function () {
+        function Food(x, y, w, h, backgroundColor) {
+            this.x = x;
+            this.y = y;
+            this.w = w;
+            this.h = h;
+            this.backgroundColor = backgroundColor
+        }
+
+        Food.prototype.init = function () {
+            console.log('init', this.x)
+            console.log('init', this.y)
+            this.x = Math.floor(map.offsetWidth / this.w * Math.random()) * this.w
+            this.y = Math.floor(map.offsetHeight / this.h * Math.random()) * this.h
+        }
+        let food = new Food(0, 0, 20, 20, '#fea73d')
+        food.init()
+        console.dir(food)
+
+        let foodDiv = document.createElement('div')
+        foodDiv.style.width = food.w + 'px'
+        foodDiv.style.height = food.h + 'px'
+        foodDiv.style.position = 'absolute'
+        foodDiv.style.left = food.x + 'px'
+        foodDiv.style.top = food.y + 'px'
+        foodDiv.style.backgroundColor = food.backgroundColor
+        // foodDiv.style.width = '100px'
+        // foodDiv.style.height = '100px'
+        // foodDiv.style.backgroundColor = '#fea73d'
+        console.log(foodDiv)
+        map.appendChild(foodDiv)
+        // console.dir(Food)
+    }());
+
+    // 蛇
+    (function () {
+        function SnakeBody(x, y, w, h) {
+            this.x = x
+            this.y = y
+            this.w = w
+            this.h = h
+        }
+        function Snake() {
+            this.body = []
+            this.direction = ''
+        }
+        Snake.prototype.init = function () {
+            this.body = []
+            this.direction = 'right'
+            for (let i = 0; i < 3; i++) {
+               this.body.add(new SnakeBody(i * 20, 40, 20, 20))
+            }
+        }
+        Snake.prototype.mount = function (parent) {
+            
+        }
+        Snake.prototype.move = function () {
+            // this.direction
+        }
+    }());
+</script>
+</body>
+</html>
